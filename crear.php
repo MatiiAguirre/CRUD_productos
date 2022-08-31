@@ -37,7 +37,7 @@ if (count($_POST) > 0) { // Si se cargo la pagina mediante el boton de crear pro
     }
 
     if (!$_POST['precio'] or $_POST['precio'] < 0) {
-        $errores[] = "El precio del producto es obligatorio y debe ser positivo";
+        $errores[] = "El precio del producto es obligatorio";
     }
 
     if (count($errores) == 0) { // si no hay errores inserto el producto en la tabla
