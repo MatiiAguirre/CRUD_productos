@@ -48,7 +48,7 @@ echo "</pre>"; */
       <th scope="col">Nombre</th>
       <th scope="col">Descripcion</th>
       <th scope="col">Precio</th>
-      <th scope="col">fecha de creacion</th>
+      <th scope="col">Fecha de creacion</th>
     </tr>
   </thead>
   <tbody>
