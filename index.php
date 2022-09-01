@@ -4,12 +4,15 @@ $PDO = new PDO("mysql:host=localhost; port=3306; dbname=crud_productos", "root",
 $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $buscar = $_GET['buscar'] ?? '';
-if ($buscar) {
-    $consulta = $PDO->prepare("SELECT * FROM productos WHERE nombre LIKE :nombre");
-    $consulta->bindValue(':nombre', "%$buscar%");
-} else {
-    $consulta = $PDO->prepare("SELECT * FROM productos ORDER BY id DESC");
-}
+
+  if ($buscar) {
+      $consulta = $PDO->prepare("SELECT * FROM productos WHERE nombre LIKE :nombre");
+      $consulta->bindValue(':nombre', "%$buscar%");
+
+  } else {
+      $consulta = $PDO->prepare("SELECT * FROM productos ORDER BY id DESC");
+  }
+
 $consulta->execute();
 $productos = $consulta->fetchAll(pdo::FETCH_ASSOC);
 /* echo "<pre>";
@@ -28,7 +31,7 @@ echo "</pre>"; */
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../15.CRUD/css/styles.css">
    
   </head>
   <body>
@@ -64,6 +67,7 @@ echo "</pre>"; */
                 <td><?=$producto['precio']?></td>
                 <td><?=$producto['fecha_creacion']?></td>
         <td>
+
             <form method="GET" action="actualizar.php">
                 <input type="hidden" name="id" value="<?=$producto['id']?>"/>
                 <button type="submit" class="btn btn-info btn-sm">Actualizar</button>
@@ -73,6 +77,7 @@ echo "</pre>"; */
                 <input type="hidden" name="id" value="<?=$producto['id']?>"/>
                 <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
             </form>
+
         </td>
     </tr>
 

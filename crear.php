@@ -20,27 +20,28 @@ if (count($_POST) > 0) { // Si se cargo la pagina mediante el boton de crear pro
     $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
 
-    if (!is_dir('img')) { // Si no existe la carpeta img se la crea
+if (!is_dir('img')) { // Si no existe la carpeta img se la crea
         mkdir('img');
     }
-    $rutaImagen = '';
-    $imagen = $_FILES['imagen'] ?? null;
 
-    if ($imagen && $imagen['tmp_name']) {
+$rutaImagen = '';
+$imagen = $_FILES['imagen'] ?? null;
+
+if ($imagen && $imagen['tmp_name']) {
         $rutaImagen = 'img/' . randomString(8) . '/' . $imagen["name"]; #ruta aleatoria de la imagen
         mkdir(dirname($rutaImagen));
         move_uploaded_file($imagen['tmp_name'], $rutaImagen);
     }
 
-    if (!$_POST['nombre']) {
+if (!$_POST['nombre']) {
         $errores[] = "El nombre del producto es obligatorio";
     }
 
-    if (!$_POST['precio'] or $_POST['precio'] < 0) {
+if (!$_POST['precio'] or $_POST['precio'] < 0) {
         $errores[] = "El precio del producto es obligatorio";
     }
 
-    if (count($errores) == 0) { // si no hay errores inserto el producto en la tabla
+if (count($errores) == 0) { // si no hay errores inserto el producto en la tabla
 
         $consulta = $PDO->prepare("INSERT INTO productos(nombre, imagen, precio, descripcion)
                           VALUE(:nombre, :imagen, :precio, :descripcion)");
@@ -49,8 +50,10 @@ if (count($_POST) > 0) { // Si se cargo la pagina mediante el boton de crear pro
         $consulta->bindValue(":precio", $precio);
         $consulta->bindValue(":descripcion", $descripcion);
         $consulta->execute();
-        //Si se carga la consulta me debería enviar al home
-        header('Location: index.php');
+
+//Si se carga la consulta me debería enviar al home
+
+header('Location: index.php');
 
     }
 }
@@ -62,9 +65,10 @@ if (count($_POST) > 0) { // Si se cargo la pagina mediante el boton de crear pro
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mis Productos</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" href="../15.CRUD/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   </head>
+  
   <body>
 
     <h1>Creación de Productos</h1>
